@@ -154,7 +154,7 @@
                                         <div class="checkout-detail">
 
                                             <button type="submit" class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">
-                                                Pagar con Tarjeta
+                                                Métodos de pago por definir
                                             </button>
 
                                         </div>
@@ -203,7 +203,7 @@
                             <br>
 
                             <li class="list-total">
-                                <h4>Total (USD)</h4>
+                                <h4>Total: </h4>
                                 <h4 class="price">$ {{ number_format($total, 2) }}</h4>
                             </li>
                         </ul>

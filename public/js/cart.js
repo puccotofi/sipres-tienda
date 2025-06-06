@@ -13,7 +13,7 @@ function updateQuantity(productId, action) {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let item = cart.find((item) => item.id === productId);
 
-    if (!item) return;
+    if (!item) return; 
 
     if (action === "plus") {
         item.quantity++;

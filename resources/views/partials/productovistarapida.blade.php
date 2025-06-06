@@ -1,5 +1,5 @@
 <!-- Inicio del Modal de Vista Rápida -->
-<div class="modal fade theme-modal view-modal" id="view" tabindex="-1">
+<div class="modal fade theme-modal view-modal" id="vistarapida" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
         <div class="modal-content">
             <div class="modal-header p-0">
@@ -17,7 +17,7 @@
 
                     <div class="col-lg-6">
                         <div class="right-sidebar-modal">
-                            <h4 class="title-name">Estatuas de Caracoles</h4>
+                            <h4 class="title-name">Estatuas de Caracoles 2</h4>
                             <h4 class="price">$360</h4>
                            
 

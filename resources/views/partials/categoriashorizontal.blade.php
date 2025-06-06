@@ -2,7 +2,7 @@
     <h2>Explora por categorías</h2>
     <span class="title-leaf">
         <svg class="icon-width">
-            <use xlink:href="{{ full_asset('assets/svg/leaf.svg#leaf') }}"></use>
+            <use xlink:href="{{ full_asset('assets/svg/discount.svg') }}"></use>
         </svg>
     </span>
 </div>

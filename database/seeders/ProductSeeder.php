@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
             'p31.png'
         ];
 
-        for ($i = 0; $i < 1000; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $name = fake()->unique()->words(3, true); // Nombre más corto para evitar slugs muy largos
             $price = fake()->randomFloat(2, 5, 500); // Precio entre 5 y 500
 
