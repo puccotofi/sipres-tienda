@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -35,7 +37,11 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //.
+
+        $category = Category::where('id', $id)->firstOrFail();
+        $products = $category->products()->where('status', 'active')->paginate(12);
+        return view('categories.show', compact('category', 'products'));
     }
 
     /**

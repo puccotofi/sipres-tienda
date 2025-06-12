@@ -10,55 +10,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Función para actualizar la cantidad en carrito y wishlist
 function updateQuantity(productId, action) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let item = cart.find((item) => item.id === productId);
-
-    if (!item) return; 
+    const input = document.getElementById(`qty-${productId}`);
+    let currentQty = parseInt(input.value) || 1;
 
     if (action === "plus") {
-        item.quantity++;
-    } else if (action === "minus" && item.quantity > 1) {
-        item.quantity--;
+        currentQty++;
+    } else if (action === "minus" && currentQty > 1) {
+        currentQty--;
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
-    document.getElementById(`qty-${productId}`).value = item.quantity;
-    document.getElementById(`total-${productId}`).textContent = (
-        item.price * item.quantity
-    ).toFixed(2);
-
-    updateCartTotal();
+    input.value = currentQty;
 }
 
 // Función para agregar al carrito
-function addToCart(productId, imageUrl, url, price, name) {
-    let quantity = parseInt(document.getElementById(`qty-${productId}`).value);
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function addToCart(id, image, url, price, name) {
+    const qtyInput = document.getElementById(`qty-${id}`);
+    const quantity = parseInt(qtyInput.value) || 1;
 
-    let existingProduct = cart.find((item) => item.id === productId);
-    if (existingProduct) {
-        existingProduct.quantity += quantity;
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let item = cart.find((item) => item.id === id);
+
+    if (item) {
+        item.quantity += quantity;
     } else {
-        cart.push({
-            id: productId,
-            image: imageUrl,
-            url: url,
-            price: price,
-            name: name,
-            quantity: quantity,
-        });
+        cart.push({ id, image, url, price, name, quantity });
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartCount();
     updateCartTotal();
-    updateCartDropdown();
-    // Si el producto está en wishlist, eliminarlo al agregar al carrito
-    removeFromWishlist(productId);
-
-    toastr.success(
-        "Producto agregado al carrito y eliminado de la lista de deseos"
-    );
 }
 
 // Función para agregar a la wishlist

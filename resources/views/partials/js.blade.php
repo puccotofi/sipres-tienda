@@ -33,3 +33,24 @@
 <!-- Price Range Js -->
 <script src="../assets/js/ion.rangeSlider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<!-- Vista rapida de producto -->
+<script>
+    function openQuickViewModal(button) {
+        const data = button.dataset;
+
+        document.getElementById('quickViewImage').src = data.image;
+        document.getElementById('quickViewTitle').textContent = data.name;
+        document.getElementById('quickViewPrice').textContent = `$${data.price}`;
+        document.getElementById('quickViewDescription').textContent = data.description || 'Sin descripción.';
+        document.getElementById('quickViewBrand').textContent = data.brand || 'N/A';
+        document.getElementById('quickViewCode').textContent = data.code || '-';
+        document.getElementById('quickViewMoreLink').href = data.url;
+
+        // Configura el botón "Agregar al carrito"
+        const addBtn = document.getElementById('quickViewAddToCart');
+        addBtn.onclick = function () {
+            addToCart(data.id, data.image, data.url, data.price, data.name);
+        };
+    }
+</script>

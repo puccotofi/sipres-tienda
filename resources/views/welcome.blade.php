@@ -29,5 +29,4 @@ Banner Section End -->
 <!-- vista rápida -->
 @include('partials.productovistarapida')
 <!-- vista rápida -->
-
 @endsection

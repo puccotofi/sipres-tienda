@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ShippingAddressController;
-use App\Http\Controllers\PaymentController;
+
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\ShippingAddressController;
+use App\Http\Controllers\Auth\NewPasswordController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -44,14 +45,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
-Route::get('/{id}/{slug}', [ProductController::class, 'details'])->name('product.details');
-
-Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth')->name('reviews.store');
-
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-
+Route::post('/reviews', [ReviewController::class, 'store'])->middleware('auth')->name('reviews.store');
 Route::get('/shop', [ProductController::class, 'shop'])->name('shop.index');
+Route::get('product/{id}/{slug}', [ProductController::class, 'details'])->name('product.details');
+Route::get('category/{id}', [CategoryController::class, 'show'])->name('categories.products');
+
 
 require __DIR__.'/auth.php';

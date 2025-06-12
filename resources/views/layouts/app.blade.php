@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>@yield('title', 'Andercode Ecommerce')</title>
+    <title>@yield('title', 'Mueblería Virtual ISSSTEZAC')</title>
     @include('partials.head')
 </head>
 
@@ -55,12 +55,13 @@
     @include('partials.footer')
     <!-- Footer End -->
 
-    <!-- Items section Start -->
+    <!-- Bolsita flotante -->
     <div class="button-item">
         <button class="item-btn btn text-white">
             <i class="iconly-Bag-2 icli"></i>
         </button>
     </div>
+
     <div class="item-section">
         <button class="close-button">
             <i class="fas fa-times"></i>
@@ -70,7 +71,9 @@
             <span id="cart-count-dos">0</span>
             <br><br>
         </h6>
+        
         <button onclick="location.href = '{{ route('cart.index') }}';" class="btn item-button btn-sm fw-bold" id="total-uno">$ 0.00</button>
+        <a href="{{ route('cart.index') }}" class="btn item-button btn-sm fw-bold">Ver carrito</a>
     </div>
     <!-- Items section End -->
 
