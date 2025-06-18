@@ -13,6 +13,7 @@ class UserController extends Controller
     public function dashboard(){
         $user = auth()->user();
         $userId = $user->id;
+        $userRole = $user->role;
 
         $totalOrdenes = Order::where('user_id', $userId)->count();
         $totalPendientes = Cart::where('user_id', $userId)->count();
@@ -23,7 +24,11 @@ class UserController extends Controller
             ->latest()
             ->get();
 
-        return view('dashboard', compact('user', 'totalOrdenes', 'totalPendientes', 'totalWishlist', 'orders'));
+        if ($userRole == 'admin') {
+            return view('admin.dashboard', compact('user'));
+        } else {
+            return view('dashboard', compact('user', 'totalOrdenes', 'totalPendientes', 'totalWishlist', 'orders'));
+        }
     }
 
     public function updateProfile(Request $request){

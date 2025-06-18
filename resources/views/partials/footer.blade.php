@@ -9,7 +9,7 @@
                         <!-- Producto siempre fresco -->
                         <div class="service-box">
                             <div class="service-image">
-                                <img src="../assets/svg/product.svg" class="blur-up lazyload" alt="Selección de productos">
+                                <img src="{{full_asset('/assets/svg/product.svg')}}" class="blur-up lazyload" alt="Selección de productos">
                             </div>
 
                             <div class="service-detail">
@@ -20,18 +20,18 @@
                         <!-- Envío gratuito -->
                         <div class="service-box">
                             <div class="service-image">
-                                <img src="../assets/svg/delivery.svg" class="blur-up lazyload" alt="Envío gratis">
+                                <img src="{{full_asset('/assets/svg/delivery.svg')}}" class="blur-up lazyload" alt="Envío gratis">
                             </div>
 
                             <div class="service-detail">
                                 <h5>Envío Gratis en Compras Mayores a $500</h5>
                             </div>
-                        </div>
+                        </div> 
 
                         <!-- Descuentos diarios -->
                         <div class="service-box">
                             <div class="service-image">
-                                <img src="../assets/svg/discount.svg" class="blur-up lazyload" alt="Descuentos diarios">
+                                <img src="{{full_asset('/assets/svg/discount.svg')}}" class="blur-up lazyload" alt="Descuentos diarios">
                             </div>
 
                             <div class="service-detail">
@@ -42,7 +42,7 @@
                         <!-- Mejor precio del mercado -->
                         <div class="service-box">
                             <div class="service-image">
-                                <img src="../assets/svg/market.svg" class="blur-up lazyload" alt="Mejor precio">
+                                <img src="{{full_asset('/assets/svg/market.svg')}}" class="blur-up lazyload" alt="Mejor precio">
                             </div>
 
                             <div class="service-detail">

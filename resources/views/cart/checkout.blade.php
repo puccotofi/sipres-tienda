@@ -111,7 +111,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <!-- Opción de entrega futura 
                                                 <div class="col-12 future-box">
                                                     <div class="future-option">
                                                         <div class="row g-md-0 gy-4">
@@ -140,6 +140,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                -->
                                             </div>
                                         </div>
                                     </div>
@@ -170,8 +171,8 @@
                 <div class="right-side-summery-box">
 
                     @php
-                        $shippingCost = 6.90;
-                        $subTotal = $cartItems->sum('sub_total');
+                        $shippingCost = 0;
+                        $subTotal = $cartItems->sum(fn($item) => $item->quantity * $item->product->price);
                         $total = $subTotal + $shippingCost;
                     @endphp
 
@@ -182,10 +183,22 @@
 
                         <ul class="summery-contain">
                             @foreach ($cartItems as $item)
-                                <li>
-                                    <img src="{{ asset('storage/' . $item->product->image) }}" class="img-fluid blur-up lazyloaded checkout-image" alt="{{ $item->product->name }}">
-                                    <h4>{{ $item->product->name }} <span>X {{ $item->quantity }}</span></h4>
-                                    <h4 class="price">$ {{ number_format($item->sub_total, 2) }}</h4>
+                                @php
+                                    $itemTotal = $item->quantity * $item->product->price;
+                                @endphp
+                               <li class="d-flex gap-2 align-items-start mb-3">
+                                    <img src="{{ full_asset('storage/' . $item->product->image) }}"
+                                        class="img-fluid blur-up lazyloaded checkout-image"
+                                        alt="{{ $item->product->name }}"
+                                        style="width: 60px; height: auto;">
+
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1 text-dark fw-semibold">{{ $item->product->name }}</h6>
+                                        <div class="d-flex justify-content-between small text-muted">
+                                            <span>Cantidad: {{ $item->quantity }}</span>
+                                            <span>Subtotal: ${{ number_format($itemTotal, 2) }}</span>
+                                        </div>
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
@@ -197,21 +210,18 @@
                             </li>
 
                             <li>
-                                <h4>Envio</h4>
+                                <h4>Envío</h4>
                                 <h4 class="price">$ {{ number_format($shippingCost, 2) }}</h4>
                             </li>
-                            <br>
 
-                            <li class="list-total">
-                                <h4>Total: </h4>
+                            <li class="list-total mt-3">
+                                <h4>Total:</h4>
                                 <h4 class="price">$ {{ number_format($total, 2) }}</h4>
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
 </section>

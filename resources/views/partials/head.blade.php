@@ -18,3 +18,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bulk-style.css') }}">
 <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+
+<!-- DataTables CSS -->
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+

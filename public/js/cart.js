@@ -12,14 +12,39 @@ document.addEventListener("DOMContentLoaded", function () {
 function updateQuantity(productId, action) {
     const input = document.getElementById(`qty-${productId}`);
     let currentQty = parseInt(input.value) || 1;
-
+   // console.log(`Producto ID: ${productId}, Acción: ${action}, Cantidad actual: ${currentQty}`);
     if (action === "plus") {
         currentQty++;
     } else if (action === "minus" && currentQty > 1) {
         currentQty--;
     }
-
+    //console.log('El nombre del input es:', input.id);
+    //console.log(`Nueva cantidad: ${currentQty}`);
     input.value = currentQty;
+    onQtyChange(productId);
+}
+
+// Función para actualizar la cantidad al cambiar el en el carrito de compras
+
+function onQtyChange(productId) {
+    console.log(`Cambiando cantidad del producto ID: ${productId}`);
+    const input = document.getElementById(`qty-${productId}`);
+    let qty = parseInt(input.value) || 1;
+    input.value = qty; // Sanitiza el input
+
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const item = cart.find((p) => p.id === productId);
+    if (item) {
+        item.quantity = qty;
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Actualizar subtotal por producto
+        document.getElementById(`total-${productId}`).textContent = (
+            item.price * qty
+        ).toFixed(2);
+
+        updateCartTotal();
+    }
 }
 
 // Función para agregar al carrito
@@ -32,10 +57,11 @@ function addToCart(id, image, url, price, name) {
 
     if (item) {
         item.quantity += quantity;
+        toastr.success("Producto Ya esta en el carrito, cantidad actualizada");
     } else {
         cart.push({ id, image, url, price, name, quantity });
+        toastr.success("Producto agregado al carrito");
     }
-
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartTotal();
 }
@@ -124,7 +150,7 @@ function loadCart() {
                         </button>
                         <input class="form-control input-number qty-input text-center" type="text" id="qty-${
                             item.id
-                        }" value="${item.quantity}" readonly>
+                        }" value="${item.quantity}"  onchange="onQtyChange(${item.id})">
                         <button type="button" class="btn qty-right-plus" onclick="updateQuantity(${
                             item.id
                         }, 'plus')">
@@ -285,10 +311,11 @@ function updateCartCount() {
 function updateCartTotal() {
     let cart = JSON.parse(localStorage.getItem("cart")) || [];
     let subtotal = cart.reduce(
-        (sum, item) => sum + item.price * item.quantity,
+        (sum, item) => sum + (item.price * item.quantity),
         0
     );
-    let shipping = cart.length > 0 ? 6.9 : 0; // Agregar envío si hay productos
+    //let shipping = cart.length > 0 ? 6.9 : 0; // Agregar envío si hay productos
+    let shipping = 0; // Por ahora, no se aplica costo de envío
     let total = subtotal + shipping;
 
     // Guardar total en LocalStorage para usarlo en cualquier vista

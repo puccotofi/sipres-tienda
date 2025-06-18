@@ -38,7 +38,7 @@
                                 <!-- Los productos se insertarán aquí dinámicamente desde LocalStorage -->
                             </tbody>
                         </table>
-                    </div>
+                    </div> 
                 </div>
             </div>
 
