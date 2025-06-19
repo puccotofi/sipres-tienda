@@ -13,7 +13,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        //
+         $products = Product::all();
+        //dd("estoy en el controlador de marcas y tengo " . $products->count() . " productos");
+       return view('admin.cat_products.index', [
+            'products' => $products,
+            'title' => 'Todos Los Productos ',
+            'showBrand' => true,
+            'readOnly' => false // Puedes hacer true si solo es visualización
+        ]);
     }
 
     public function create()
@@ -45,7 +52,7 @@ class ProductController extends Controller
     {
         //
     }
-
+ 
     public function details($id, $slug){
         // Buscar el producto
         $product = Product::where('id', $id)->where('slug', $slug)->firstOrFail();

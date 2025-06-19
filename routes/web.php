@@ -65,6 +65,14 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', CategoryController::class);
+    Route::get('brands/{brand}/products', [BrandController::class, 'products'])->name('brands.products');
+
+    // Otras rutas del recurso brands
+    Route::resource('brands', BrandController::class);
+    //
+    //Route::get('brand/{id}', [BrandController::class, 'show_products'])->name('brands.products');
+    Route::resource('products', ProductController::class);
+
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
