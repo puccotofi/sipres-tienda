@@ -44,6 +44,10 @@
                                 title="Eliminar">
                             <i class="fa-solid fa-trash"></i>
                         </button>
+                        <a href="{{ route('admin.category.products', $category) }}"
+                           class="btn btn-sm btn-outline-secondary w-100" title="Ver productos">
+                            <i class="fa-solid fa-boxes-stacked"></i>
+                        </a>
                     </div>
                 </td>
             </tr>

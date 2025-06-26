@@ -30,6 +30,9 @@
                     <li class="">
                         <a href="{{ route('admin.products.index') }}" class="nav-link text-white">Productos</a>
                     </li>
+                     <li class="">
+                        <a href="{{ route('admin.suppliers.index') }}" class="nav-link text-white">Proveedores</a>
+                    </li>
                 </ul>
             </li>
 

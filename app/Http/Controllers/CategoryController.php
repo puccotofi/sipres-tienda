@@ -122,15 +122,23 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+   public function destroy(Category $category)
     {
-        if ($category->icon && Storage::disk('public')->exists($category->icon)) {
-            Storage::disk('public')->delete($category->icon);
+        if ($category->products()->exists()) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('error', 'No se puede eliminar la categoría porque tiene productos asociados.');
+        } else {
+            if ($category->icon && Storage::disk('public')->exists($category->icon)) {
+                Storage::disk('public')->delete($category->icon);
+            }
+
+            $category->delete();
+
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('deleted', 'Categoría eliminada correctamente.');
         }
-
-        $category->delete();
-
-        return redirect()->route('admin.categories.index')->with('deleted', 'Categoría eliminada exitosamente.');
     }
      /**
      * Muestra los productos de una categoría específica.
@@ -142,5 +150,17 @@ class CategoryController extends Controller
         $category = Category::where('id', $id)->firstOrFail();
         $products = $category->products()->where('status', 'active')->paginate(12);
         return view('categories.show', compact('category', 'products'));
+    }
+    // funcion para mostrar los productos de una categoría específica en el panel de administración
+    public function products(Category $category)
+    {
+        $products = $category->products()->with('category')->get();
+        //dd("estoy en el controlador de marcas y tengo " . $products->count() . " productos");
+       return view('admin.cat_products.index', [
+            'products' => $products,
+            'title' => 'Productos de la Categoria: ' . $category->name,
+            'showBrand' => false,
+            'readOnly' => false // Puedes hacer true si solo es visualización
+        ]);
     }
 }

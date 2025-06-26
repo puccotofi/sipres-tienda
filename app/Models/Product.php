@@ -35,4 +35,9 @@ class Product extends Model
     {
         return $this->hasMany(Wishlist::class);
     }
+    //relacion para que un producto pueda tener varios proveedores
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class);
+    }
 }

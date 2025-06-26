@@ -10,9 +10,10 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\Admin\DashboardController;
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\Auth\NewPasswordController;
 
@@ -64,7 +65,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('categories/{category}/products', [CategoryController::class, 'products'])->name('category.products');
     Route::resource('categories', CategoryController::class);
+    
     Route::get('brands/{brand}/products', [BrandController::class, 'products'])->name('brands.products');
 
     // Otras rutas del recurso brands
@@ -72,7 +75,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     //
     //Route::get('brand/{id}', [BrandController::class, 'show_products'])->name('brands.products');
     Route::resource('products', ProductController::class);
-
+    Route::get('suppliers/{supplier}/products', [SupplierController::class, 'products'])->name('suppliers.products');
+    Route::resource('suppliers', SupplierController::class);
+    
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');

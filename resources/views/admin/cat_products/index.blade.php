@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Imagen</th> 
                 @if ($showBrand ?? false)
                     <th>Marca</th>
                 @endif
@@ -28,6 +29,16 @@
             @foreach ($products as $product)
             <tr>
                 <td>{{ $product->name }}</td>
+                <td>
+                    @if ($product->image)
+                        <img src="{{ full_asset('storage/' . $product->image) }}"
+                            alt="{{ $product->name }}"
+                            class="img-thumbnail"
+                            style="width: 60px; height: auto;">
+                    @else
+                        <span class="text-muted">Sin imagen</span>
+                    @endif
+                </td>
                 @if ($showBrand ?? false)
                     <td>{{ $product->brand->name ?? '-' }}</td>
                 @endif

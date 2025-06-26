@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
  
 class BrandController extends Controller
 {
-    //<?php
+    //funcion para presentar productos por marca
  public function products(Brand $brand)
     {
         $products = $brand->products()->with('brand')->get();
@@ -157,14 +157,20 @@ class BrandController extends Controller
      */
     public function destroy(Brand $brand)
     {
-        if ($brand->icon && Storage::disk('public')->exists($brand->icon)) {
-            Storage::disk('public')->delete($brand->icon);
+        if ($brand->products()->exists()) {
+            return redirect()
+                ->route('admin.brands.index')
+                ->with('error', 'No se puede eliminar la marca porque tiene productos asociados.');
+        } else {
+            if ($brand->icon && Storage::disk('public')->exists($brand->icon)) {
+                Storage::disk('public')->delete($brand->icon);
+            }
+            $brand->delete();
+            return redirect()
+                ->route('admin.brands.index')
+                ->with('deleted', 'Marca eliminada correctamente.');
         }
-        $brand->delete();
-        return redirect()->route('admin.brands.index')->with('deleted', 'Marca eliminada correctamente.');
     }
-    
-   
     
 }
 
