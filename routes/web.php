@@ -5,14 +5,15 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\WishlistController;
 
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -48,15 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 
     // Rutas de administrador
-    // Rutas para Categorías
-    /*
     
-    Route::get('/categories/create', [CategoryController::class, 'create'])->name('admin.categories.create');
-    Route::post('/categories/store', [CategoryController::class, 'store'])->name('admin.categories.store');
-    Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('admin.categories.edit');
-    Route::port('/categories/update', [CategoryController::class, 'update'])->name('admin.categories.update');
-    Route::get('/categories/destroy', [CategoryController::class, 'destroy'])->name('admin.categories.destroy');
-    */
     //Route::resource('categories', CategoryController::class);
     //Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -77,6 +70,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('products', ProductController::class);
     Route::get('suppliers/{supplier}/products', [SupplierController::class, 'products'])->name('suppliers.products');
     Route::resource('suppliers', SupplierController::class);
+    Route::get('orders/{order}',[OrderController::class, 'show'])->name('admin.orders.show');
+    Route::get('orders/{order}/addresses', [OrderController::class, 'editShippingAddress'])->name('orders.addresses');
+    Route::put('orders/{order}/addresses/{address}', [OrderController::class, 'updateShippingAddress'])->name('orders.updateShipping');
+    Route::post('orders/{order}/addresses', [OrderController::class, 'storeShippingAddress'])->name('orders.addresses.store');
+    Route::put('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::post('orders/{order}/add-note', [OrderController::class, 'addNote'])->name('orders.addNote');
+
+    //Route::get('orders/{order}/updateaddress',[OrderController::class, 'updateAddress'])->name('admin.orders.updateAddress');
+    Route::post('orders/{order}/addproduct', [OrderController::class, 'addProduct'])->name('orders.addProduct');
+    Route::delete('orders/{order}/items/{orderItem}', [OrderController::class, 'removeProduct'])->name('orders.removeProduct');
+    Route::resource('orders', OrderController::class);
     
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');

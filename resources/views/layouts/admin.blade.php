@@ -58,6 +58,19 @@
             });
         });
     </script>
+    <!--script para datatable productos-->
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-MX.json'
+                },
+                pageLength: 5,
+                order: [[0, 'asc']]
+            });
+        });
+    </script>
+
     <!-- Modal reutilizable para confirmación de eliminación -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

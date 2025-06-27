@@ -14,6 +14,11 @@
                     <i class="fa-solid fa-house me-2"></i> Inicio
                 </a>
             </li>
+            <li class="nav-item mb-2">
+                <a href="{{ route('admin.orders.index') }}" class="nav-link text-white">
+                    <i class="fa-solid fa-house me-2"></i> Pedidos
+                </a>
+            </li>
 
             <li class="nav-item mb-2">
                 <a href="#" class="nav-link text-white" onclick="toggleSubmenu(event)">

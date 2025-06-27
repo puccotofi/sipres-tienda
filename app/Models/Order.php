@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\History;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -29,5 +30,9 @@ class Order extends Model
     public function shippingAddress()
     {
         return $this->belongsTo(ShippingAddress::class, 'user_address_id');
+    }
+    public function histories()
+    {
+        return $this->hasMany(History::class);
     }
 }

@@ -21,7 +21,7 @@ class OrderSeeder extends Seeder
             Order::create([
                 'user_id' => fake()->randomElement($users),
                 'total_price' => 0, // Se actualizará después al sumar los detalles
-                'status' => fake()->randomElement(['pending', 'paid', 'shipped', 'cancelled']),
+                'status' => fake()->randomElement(['Pendiente', 'Pagado', 'Enviado', 'Cancelado']),
             ]);
         }
     }
