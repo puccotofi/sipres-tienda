@@ -8,6 +8,8 @@ use App\Models\OrderItem;
 Use App\Models\Order; // Assuming you have an Order model
 use Illuminate\Http\Request;
 use App\Models\ShippingAddress;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class OrderController extends Controller
 {
@@ -83,6 +85,7 @@ class OrderController extends Controller
         $ivaproduct = $product->price2; 
         $iva = round(($ivaproduct) * $quantity, 2);
         $subTotal = round(($price) * $quantity, 2);
+        $subTotal+= $iva; // Sumar IVA al subtotal
 
         $order->orderItems()->create([
             'product_id' => $product->id,
@@ -96,6 +99,13 @@ class OrderController extends Controller
         $order->iva = $order->orderItems()->sum('iva');
         $order->total_price = $order->orderItems()->sum('subtotal');
         $order->save();
+
+         History::create([
+            'order_id' => $order->id,
+            'user_id' => auth()->id(),
+            'action' => 'Adición de producto',
+            'comment' => 'Producto agregado: ' . $product->name . ' (Cantidad: ' . $quantity . ')',
+        ]);
         return redirect()->route('admin.orders.show', $order)->with('success', 'Producto agregado al pedido.');
     }
     public function removeProduct(Order $order, OrderItem $orderItem)
@@ -111,6 +121,12 @@ class OrderController extends Controller
         $order->iva = $order->orderItems()->sum('iva');
         $order->total_price = $order->orderItems()->sum('subtotal');
         $order->save();
+        History::create([
+            'order_id' => $order->id,
+            'user_id' => auth()->id(),
+            'action' => 'Eliminación de producto',
+            'comment' => 'Producto eliminado: ' . $orderItem->product->name,
+        ]);
 
         return redirect()->route('admin.orders.show', $order)
                         ->with('deleted', 'Producto eliminado del pedido.');
@@ -177,14 +193,14 @@ class OrderController extends Controller
         return redirect()->route('admin.orders.show', $order)
                         ->with('success', 'Estatus actualizado correctamente.');
     }
-    
+
     public function addNote(Request $request, Order $order)
     {
         $request->validate([
             'comment' => 'required|string|max:1000',
         ]);
 
-        \App\Models\History::create([
+        History::create([
             'order_id' => $order->id,
             'user_id' => auth()->id(),
             'action' => 'Nota manual',
@@ -193,5 +209,14 @@ class OrderController extends Controller
 
         return redirect()->route('admin.orders.show', $order)
                         ->with('success', 'Nota registrada correctamente.');
+    }
+    public function print(Order $order)
+    {
+        $order->load(['user', 'orderItems.product', 'shippingAddress']);
+
+        $pdf = Pdf::loadView('admin.orders.pdforder', compact('order'))
+                ->setPaper('letter');
+
+        return $pdf->stream('pedido_' . $order->id . '.pdf');
     }
 }

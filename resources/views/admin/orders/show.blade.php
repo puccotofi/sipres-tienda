@@ -77,6 +77,9 @@
                 <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#changeStatusModal">
                     <i class="fa fa-exchange-alt me-1"></i> Cambiar estatus
                 </button>
+                <a href="{{ route('admin.orders.print', $order) }}" target="_blank" class="btn btn-outline-dark btn-sm">
+                    <i class="fa fa-print me-1"></i> Imprimir pedido
+                </a>
             </div>
         </div>
     </div>

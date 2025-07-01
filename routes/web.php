@@ -76,7 +76,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('orders/{order}/addresses', [OrderController::class, 'storeShippingAddress'])->name('orders.addresses.store');
     Route::put('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::post('orders/{order}/add-note', [OrderController::class, 'addNote'])->name('orders.addNote');
-
+    Route::get('orders/{order}/print', [OrderController::class, 'print'])->name('orders.print');
     //Route::get('orders/{order}/updateaddress',[OrderController::class, 'updateAddress'])->name('admin.orders.updateAddress');
     Route::post('orders/{order}/addproduct', [OrderController::class, 'addProduct'])->name('orders.addProduct');
     Route::delete('orders/{order}/items/{orderItem}', [OrderController::class, 'removeProduct'])->name('orders.removeProduct');
