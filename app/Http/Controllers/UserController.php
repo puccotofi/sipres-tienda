@@ -24,8 +24,10 @@ class UserController extends Controller
             ->latest()
             ->get();
 
-        if ($userRole == 'admin') {
-            return view('admin.dashboard', compact('user'));
+        if ($userRole == 'admin') { 
+            // Si el usuario es administrador, redirigir al dashboard de administrador
+            //return view('admin.admindashboard', compact('user'));
+            return redirect()->route('admin.admindashboard');
         } else {
             return view('dashboard', compact('user', 'totalOrdenes', 'totalPendientes', 'totalWishlist', 'orders'));
         }

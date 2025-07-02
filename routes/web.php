@@ -14,9 +14,9 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SupplierController;
 
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\Auth\NewPasswordController;
+use App\Http\Controllers\DasboardController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -52,20 +52,21 @@ Route::middleware('auth')->group(function () {
     
     //Route::resource('categories', CategoryController::class);
     //Route::get('/categories', [CategoryController::class, 'index'])->name('admin.categories.index');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    
     Route::get('/brands', [BrandController::class, 'index'])->name('admin.brands.index');
     Route::get('/products', [ProductController::class, 'index'])->name('admin.products.index');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('categories/{category}/products', [CategoryController::class, 'products'])->name('category.products');
-    Route::resource('categories', CategoryController::class);
+    Route::get('admindashboard', [DasboardController::class, 'index'])->name('admindashboard');
     
+    Route::get('categories/{category}/products', [CategoryController::class, 'products'])->name('category.products');
+    Route::resource('categories', CategoryController::class);    
     Route::get('brands/{brand}/products', [BrandController::class, 'products'])->name('brands.products');
 
     // Otras rutas del recurso brands
     Route::resource('brands', BrandController::class);
-    //
+    
     //Route::get('brand/{id}', [BrandController::class, 'show_products'])->name('brands.products');
     Route::resource('products', ProductController::class);
     Route::get('suppliers/{supplier}/products', [SupplierController::class, 'products'])->name('suppliers.products');
@@ -77,6 +78,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::put('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
     Route::post('orders/{order}/add-note', [OrderController::class, 'addNote'])->name('orders.addNote');
     Route::get('orders/{order}/print', [OrderController::class, 'print'])->name('orders.print');
+    Route::get('orders/status/{status}', [OrderController::class, 'indexByStatus'])->name('orders.status');
+
     //Route::get('orders/{order}/updateaddress',[OrderController::class, 'updateAddress'])->name('admin.orders.updateAddress');
     Route::post('orders/{order}/addproduct', [OrderController::class, 'addProduct'])->name('orders.addProduct');
     Route::delete('orders/{order}/items/{orderItem}', [OrderController::class, 'removeProduct'])->name('orders.removeProduct');

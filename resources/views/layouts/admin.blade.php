@@ -113,8 +113,9 @@
             }
         });
     </script>
+    
     @include('partials.toasters')
- 
+    @yield('scripts')
 </body>
 
 </html>

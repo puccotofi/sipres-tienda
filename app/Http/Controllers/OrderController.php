@@ -19,9 +19,19 @@ class OrderController extends Controller
     public function index()
     {
          $orders = Order::latest()->get();
+         
         return view('admin.orders.index', compact('orders'));
     }
 
+    public function indexByStatus(string $status)
+    {
+        $orders = Order::where('status', $status)
+            ->latest()
+            ->with('user')
+            ->paginate(20);
+
+        return view('admin.orders.index', compact('orders', 'status'));
+    }
     /**
      * Show the form for creating a new resource.
      */

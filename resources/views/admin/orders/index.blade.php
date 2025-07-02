@@ -4,8 +4,11 @@
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4">Listado de Pedidos</h2>
-
+    @if(isset($status))
+        <h4 class="mb-3">Pedidos con estatus: {{ ucfirst(str_replace('_', ' ', $status)) }}</h4>
+    @else
+        <h4 class="mb-3">Todos los Pedidos</h4>
+    @endif
     <table id="crudTable" class="table table-bordered table-striped">
         <thead>
             <tr>

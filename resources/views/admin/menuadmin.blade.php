@@ -10,19 +10,19 @@
         <ul class="nav flex-column">
 
             <li class="nav-item mb-2">
-                <a href="{{ route('admin.dashboard') }}" class="nav-link text-white">
+                <a href="{{ route('admin.admindashboard') }}" class="nav-link text-white">
                     <i class="fa-solid fa-house me-2"></i> Inicio
                 </a>
             </li>
             <li class="nav-item mb-2">
                 <a href="{{ route('admin.orders.index') }}" class="nav-link text-white">
-                    <i class="fa-solid fa-house me-2"></i> Pedidos
+                    <i class="fa-solid fa-box me-2"></i> Pedidos
                 </a>
             </li>
 
             <li class="nav-item mb-2">
                 <a href="#" class="nav-link text-white" onclick="toggleSubmenu(event)">
-                    <i class="fa-solid fa-box me-2"></i> Catálogos
+                    <i class="fa-solid fa-gears me-2"></i> Catálogos
                     <i class="fa fa-chevron-down float-end"></i>
                 </a>
                 <ul class="nav ms-2" style="display: none;">
@@ -43,7 +43,7 @@
 
             <li class="nav-item mb-2">
                 <a href="" class="nav-link text-white">
-                    <i class="fa-solid fa-book me-2"></i> Pedidos
+                    <i class="fa-solid fa-book me-2"></i> otro Menu
                 </a>
             </li>
             <li class="nav-item mb-2">

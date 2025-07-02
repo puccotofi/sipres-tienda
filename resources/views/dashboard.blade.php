@@ -62,7 +62,7 @@
                     <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#pills-dashboard" type="button"><i data-feather="home"></i>
-                                Dashboard</button>
+                                Inicio de Cliente</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill" data-bs-target="#pills-order" type="button"><i data-feather="shopping-bag"></i>Mis Ordenes</button>
@@ -94,7 +94,7 @@
                         <div class="tab-pane fade show active" id="pills-dashboard" role="tabpanel">
                             <div class="dashboard-home">
                                 <div class="title">
-                                    <h2>My Dashboard</h2>
+                                    <h2>Inicio</h2>
                                     <span class="title-leaf">
                                         <svg class="icon-width bg-gray">
                                             <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
@@ -221,21 +221,7 @@
                                                             $userReview = $item->product->reviews->where('user_id', auth()->id())->first();
                                                         @endphp
 
-                                                        @if(!$userReview)
-                                                            <button class="btn btn-md btn-theme-outline fw-bold"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#writereview"
-                                                                onclick="setReviewData({{ $item->product->id }}, '', '')">
-                                                                Escribir Reseña
-                                                            </button>
-                                                        @else
-                                                            <button class="btn btn-md btn-theme-outline fw-bold"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#writereview"
-                                                                onclick="setReviewData({{ $item->product->id }}, '{{ $userReview->rating }}', '{{ $userReview->comment }}', {{ $userReview->id }})">
-                                                                Editar Reseña
-                                                            </button>
-                                                        @endif
+                                                       
                                                     </div>
                                                 @endif
                                             @endforeach
